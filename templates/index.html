@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch and Play Media</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href = "static/Tman.css">
+</head>
+<body>
+
+    <!-- Background Image Container -->
+    <div class="background-container">
+        <img src="static/StockCake-Podcasting Equipment Closeup_1719562739.jpg" alt="Background Image">
+    </div>
+
+    <h1>Transcribe</h1>
+    
+    <h2>Audio</h2>
+    <form id="audio-form" method="POST" action="/get_audio" target="audio-player">
+        <label for="audio-filename">Enter the audio filename:</label>
+        <input type="text" id="audio-filename" name="filename">
+        <input type="submit" value="Fetch Audio">
+    </form>
+   
+    <br>
+    <audio id="audio-player" controls>
+        <source id="audio-source" src="" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <form method="GET" action="/get_translation" target="audio-player">
+        <input type="submit" value="translate">
+    </form>
+
+    <script>
+        document.getElementById('audio-form').onsubmit = function(event) {
+            event.preventDefault();
+            var form = event.target;
+            var formData = new FormData(form);
+            var xhr = new XMLHttpRequest();
+            xhr.open(form.method, form.action, true);
+            xhr.responseType = 'blob';
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var audioURL = URL.createObjectURL(xhr.response);
+                    var audioPlayer = document.getElementById('audio-player');
+                    var audioSource = document.getElementById('audio-source');
+                    audioSource.src = audioURL;
+                    audioPlayer.load();
+                    audioPlayer.play();
+                } else {
+                    alert('Error: ' + xhr.status + ' - ' + xhr.statusText);
+                }
+            };
+
+            xhr.send(formData);
+        };
+
+        document.getElementById('video-form').onsubmit = function(event) {
+            event.preventDefault();
+            var form = event.target;
+            var formData = new FormData(form);
+            var xhr = new XMLHttpRequest();
+            xhr.open(form.method, form.action, true);
+            xhr.responseType = 'blob';
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var videoURL = URL.createObjectURL(xhr.response);
+                    var videoPlayer = document.getElementById('video-player');
+                    var videoSource = document.getElementById('video-source');
+                    videoSource.src = videoURL;
+                    videoPlayer.load();
+                    videoPlayer.play();
+                } else {
+                    alert('Error: ' + xhr.status + ' - ' + xhr.statusText);
+                }
+            };
+
+            xhr.send(formData);
+        };
+    </script>
+</body>
+</html>
+
