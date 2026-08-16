@@ -18,7 +18,7 @@ def index():
 
 @app.route('/get_translation')
 def GetTranslation():
-    VULAVULA_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM2ZGQ4NTgyNDRkNDQ4NmI5MzM3MTBiOGU0OGMwMTIyIiwiY2xpZW50X2lkIjo3MCwicmVxdWVzdHNfcGVyX21pbnV0ZSI6MCwibGFzdF9yZXF1ZXN0X3RpbWUiOm51bGx9.JKe-hoIrlDX5FH4b2eJPdLyi_OLVhDXLqXVYAUmz0Ro"
+    VULAVULA_TOKEN = ""
 
     client = VulavulaClient(VULAVULA_TOKEN)
     #TRANSPORT_URL = "https://vulavula-services.lelapa.ai/api/v1/transport/file-upload"
